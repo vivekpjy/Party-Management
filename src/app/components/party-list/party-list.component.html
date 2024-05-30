@@ -1,0 +1,42 @@
+<div class="party-container">
+    <h2>Party Management</h2>
+    <form [formGroup]="partyForm" (ngSubmit)="onAddParty()">
+      <mat-form-field>
+        <input matInput placeholder="Party Name" formControlName="name">
+        <mat-error *ngIf="partyForm.get('name')!.hasError('required')">
+          Party name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Location" formControlName="location">
+        <mat-error *ngIf="partyForm.get('location')!.hasError('required')">
+            Location name is required
+          </mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit">Add Party</button>
+    </form>
+    <!-- [dataSource]="parties" -->
+    <table mat-table  class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let party"> {{party.name}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef> Location </th>
+        <td mat-cell *matCellDef="let party"> {{party.location}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let party">
+          <button mat-button (click)="onEditParty(party)">Edit</button>
+          <button mat-button (click)="onDeleteParty(party.id)">Delete</button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  

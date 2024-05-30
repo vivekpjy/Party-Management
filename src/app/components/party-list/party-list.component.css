@@ -1,0 +1,9 @@
+.party-container {
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }

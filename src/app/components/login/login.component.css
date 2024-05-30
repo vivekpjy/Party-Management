@@ -1,0 +1,17 @@
+.login-container {
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+    background-color: lavender;
+    border: 2px solid lightslategray;
+     padding: 2rem 1rem;
+     border-radius: 10%;
+  }
+.submit-btn:hover{
+    background-color: black;
+    color: white;
+}
+
+  mat-form-field {
+    width: 100%;
+  }

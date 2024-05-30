@@ -1,0 +1,43 @@
+<!-- <div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
+          <mat-error *ngIf="loginForm.get('username')!.hasError('required')">Username is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="loginForm.get('password')!.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+        <button mat-raised-button class="submit-btn" type="submit" [disabled]="loginForm.invalid">Login</button>
+      </form>
+</div> -->
+
+<div class="wrapper">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h1>Login</h1>
+        <div class="input-box">
+            <input type="text" placeholder="Username" formControlName="username">
+            <span><i class='bx bxs-user'></i></span>
+            <div *ngIf="loginForm.get('username')!.touched && loginForm.get('username')!.hasError('required')">
+                <label class="error-message">Username is required</label>
+                </div>
+        </div>
+        <div class="input-box">
+            <input type="password" formControlName="password" placeholder="Password">
+            <span><i class='bx bxs-lock'></i></span>
+            <div *ngIf="loginForm.get('password')!.touched && loginForm.get('password')!.hasError('required')">
+            <label class="error-message">Password is required</label>
+            </div>
+            
+        </div>
+        <div class="input-box">
+            <button type="submit" class="Login-btn" [disabled]="loginForm.invalid">Login</button>
+        </div>
+       
+    </form>
+</div>
+
+  

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PartyService } from 'src/app/service/party.service';
 
 interface Party {
@@ -14,40 +15,21 @@ interface Party {
   styleUrls: ['./party-list.component.css']
 })
 export class PartyListComponent implements OnInit {
-  partyForm!: FormGroup;
-  parties: Party[] = [];
-  displayedColumns: string[] = ['name', 'location', 'actions'];
+  parties: any[] = [];
 
-  constructor(private fb: FormBuilder, private partyService: PartyService) {}
+  constructor(private partyService: PartyService, public router: Router) {}
 
   ngOnInit(): void {
-    this.partyForm = this.fb.group({
-      name: ['', Validators.required],
-      location: ['', Validators.required]
-    });
-    this.loadParties();
-  }
-
-  loadParties(): void {
-    this.partyService.getParties().subscribe(parties => {
-      this.parties = parties;
+    this.partyService.getParties().subscribe(data => {
+      this.parties = data;
     });
   }
 
-  onAddParty(): void {
-    if (this.partyForm.valid) {
-      this.partyService.addParty(this.partyForm.value).subscribe(party => {
-        this.parties.push(party);
-        this.partyForm.reset();
-      });
-    }
+  viewParty(id: number): void {
+    this.router.navigate(['/party-form', id]);
   }
 
-  onEditParty(party: Party): void {
-    // Implement edit functionality
-  }
-
-  onDeleteParty(id: number): void {
+  deleteParty(id: number): void {
     this.partyService.deleteParty(id).subscribe(() => {
       this.parties = this.parties.filter(p => p.id !== id);
     });

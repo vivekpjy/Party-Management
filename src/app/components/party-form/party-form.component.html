@@ -1,1 +1,23 @@
-<p>party-form works!</p>
+<div class="party-form-container">
+    <h2>{{ partyId ? 'Edit Party' : 'Add Party' }}</h2>
+    <form [formGroup]="partyForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="partyForm.get('name')!.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="company_name">
+        <mat-error *ngIf="partyForm.get('company_name')!.hasError('required')">Company Name is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Mobile No</mat-label>
+        <input matInput formControlName="mobile_no">
+        <mat-error *ngIf="partyForm.get('mobile_no')!.hasError('required')">Mobile No is required</mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit" [disabled]="partyForm.invalid">Save</button>
+      <button mat-raised-button type="button" color="warn" (click)="router.navigate(['/party-list'])">Cancel</button>
+    </form>
+  </div>
+  

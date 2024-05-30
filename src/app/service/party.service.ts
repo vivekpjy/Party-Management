@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable,catchError,of } from 'rxjs';
 
 
 interface Party {
@@ -12,27 +12,39 @@ interface Party {
   providedIn: 'root'
 })
 export class PartyService {
-  private apiUrl = 'https://ap.greatfuturetechno.com/';
+  private baseUrl = 'https://ap.greatfuturetechno.com/';
 
   constructor(private http: HttpClient) { }
 
-  login(credentials: { username: string, password: string }): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login/`, credentials);
+  getParties(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl)
+      .pipe(catchError(this.handleError<any[]>('getParties', [])));
   }
 
-  getParties(): Observable<Party[]> {
-    return this.http.get<Party[]>(this.apiUrl);
+  getPartyById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}?id=${id}`)
+      .pipe(catchError(this.handleError<any>('getPartyById')));
   }
 
-  addParty(party: Party): Observable<Party> {
-    return this.http.post<Party>(this.apiUrl, party);
+  addParty(party: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, party)
+      .pipe(catchError(this.handleError<any>('addParty')));
   }
 
-  updateParty(party: Party): Observable<Party> {
-    return this.http.put<Party>(`${this.apiUrl}/${party.id}`, party);
+  updateParty(id: number, party: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}?id=${id}`, party)
+      .pipe(catchError(this.handleError<any>('updateParty')));
   }
 
-  deleteParty(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteParty(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}?id=${id}`)
+      .pipe(catchError(this.handleError<any>('deleteParty')));
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 }

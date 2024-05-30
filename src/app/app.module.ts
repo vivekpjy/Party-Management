@@ -18,6 +18,7 @@ import { PartyService } from './service/party.service';
 import { AlertMessageService } from './service/alert-message.service';
 import { AuthService } from './auth-service/auth.service';
 import { AuthGuard } from './auth-service/auth.guard';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AuthGuard } from './auth-service/auth.guard';
     MatButtonModule,
     MatCardModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatTableModule
     
    
   ],
